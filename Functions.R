@@ -106,39 +106,6 @@ pwerfct_min <- function(m, piv, Sigma, c, N, indices){
   return (pwer)
 }
 
-# Function for calculation of the PWER with the minimum number min
-pwerfct_min2 <- function(m, pi.est, Sigma, c, N, indices){
-  pwer = 0
-  min <- 1/(2*(2^m-1))
-  fac <- 1-length(indices)*min
-  for(k in 1:(2^m-1)){
-    J <- indexfct(k, m)
-    card_J <- length(J)
-    Sigma_J <- subcovmatfct(J, card_J, Sigma)
-    n <- 2^m-1
-    if(card_J==1){
-      if(k %in% indices){
-        if(!(marginal_pi(m, pi.est)[k]==0)) pwer <- pwer + (min * (1-pt(q=c, df=N-n)))
-        else pwer <- pwer + (min * (1-pt(q=c, df=N-n)))
-        #die letztendlich gewahlte Praevalenz zum 1-fac addieren, um in einer spaeteren
-        #Schleife alle Summanden bearbeiten zu koennen, die nicht in indices sind.
-      }
-      else{
-        pwer <- pwer + (fac*piv[k]* (1-pt(q=c, df=N-n)))
-      }    
-    }
-    else{
-      if(k %in% indices){
-        pwer <- pwer + (min * (1-pmvt(upper=rep(c,card_J), sigma=Sigma_J, df=N-n)[1])) 
-      }
-      else{
-        pwer <- pwer + (fac*piv[k]*(1-pmvt(upper=rep(c,card_J), sigma=Sigma_J, df=N-n)[1])) 
-      }
-    }
-  } 
-  return (pwer)
-}
-
 # Returns the index set J belonging to the k-th summand
 indexfct <- function(k, m){
   v <- binvector(k, m)
