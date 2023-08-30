@@ -127,7 +127,7 @@ f8 <- function(k, m, Nsim, alpha, N, value){
   return(rval)
 }
 
-#Calls one of the obove functions Nsim times
+#Calls one of the above functions Nsim times
 sim <- function(m, Nsim, alpha, N, case, value){
   for(i in 1:8) if(case==i) f <- get(paste0("f", i)) 
   cl <- makeCluster(no_cores)
