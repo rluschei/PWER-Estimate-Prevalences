@@ -8,13 +8,13 @@ source("cases.R")
 
 # Boxplot function
 boxplot <- function(df_max_swer, df_mean_swer, case_no){
-  if(case_no < 10) {
+  if(case_no < 11) {
     key <- "m"
     df_max_swer_long <- gather(df_max_swer, key = key, value = "value")
     df_mean_swer_long <- gather(df_mean_swer, key = key, value = "value")
     x_label <- "number of biomarkers m"
   }
-  if(case_no == 10) {
+  if(case_no == 11) {
     key <- "N"
     df_max_swer_long <- gather(df_max_swer, key = key, value = "value")
     df_mean_swer_long <- gather(df_mean_swer, key = key, value = "value")
@@ -45,9 +45,9 @@ wrap <- function(args) {
     df <- as.data.frame(mapply(sim, m = args$m, N = args$N, alpha = args$alpha, 
                                indep_bio = args$indep_bio, prev_mode = args$prev_mode, 
                                distr = args$distr, strategy = args$strategy, 
-                               tmt_comp = args$tmt_comp, est = args$est, 
-                               error_rate = error_rate))
-    names(df) <- ifelse(rep(args$case_no, length.out = ncol(df)) < 10, args$m, args$N)
+                               single = args$single, est = args$est, 
+                               het_var = args$het_var, error_rate = error_rate))
+    names(df) <- ifelse(rep(args$case_no, length.out = ncol(df)) < 11, args$m, args$N)
     assign(paste0("df_", error_rate, args$case_no), df, envir = .GlobalEnv)
   })
   
