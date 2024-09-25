@@ -50,12 +50,12 @@ df_long <- df %>%
   pivot_longer(cols = c(pwer, pwer_min, max_swer, max_swer_min, mean_swer, mean_swer_min), 
                names_to = "variable", values_to = "value")
 
-xlabels <- c("non-adjusted", "adjusted")
+xlabels <- c("unadjusted", "adjusted")
 margins <- margin(10, 20, 0, 10)
 
 plot_pwer <- ggplot(df_long %>% filter(variable %in% c("pwer", "pwer_min")), 
                     aes(x = variable, y = value)) + 
-  geom_boxplot() + xlab("") +  ylab("PWER") + scale_x_discrete(labels = xlabels) +
+  geom_boxplot() + xlab("") +  ylab("true PWER") + scale_x_discrete(labels = xlabels) +
   theme(text = element_text(size = 20), plot.margin = margins) 
 
 plot_max_swer <- ggplot(df_long %>% filter(variable %in% c("max_swer", "max_swer_min")), 
